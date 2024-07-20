@@ -63,6 +63,9 @@ iamoneofthechoosen1@gmail.com
 ## Authors
 
 Dabi 
+[@Dabi](iamoneofthechoosen1@gmial.com)
 
-## Liscence 
-Dabi
+
+## License
+
+This project is licensed under the [Dabi] License - see the LICENSE.md file for details
