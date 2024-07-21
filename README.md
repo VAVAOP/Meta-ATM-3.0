@@ -1,10 +1,10 @@
 # Meta-ATM-3.0
 
-This Is An Upgraded Project Version Which Demonstrates An Running Of An Simple Web3 Page With Solidity Contract By Connecting Wallet In Local Network Using React And Also Able To Performing Basic Functions Like Deposit,Withdraw And Transfer Hope You Find Its Usefull..
+This Is An Upgraded Project Version Which Demonstrates An Running Of An Simple Web3 Page With Solidity Contract By Connecting Wallet In Local Network Using React And Also Able To Performing Basic Functions Like Deposit,Withdraw And Calculate Simple Interest And Compound Interest Also Call Some Data Reading Functions  Hope You Find Its Usefull..
 
 ## Description
 
-This is An Upgraded Version Of Meta Atm 2.0 .Which Include Some New Functions Like Transfer Function And Other Info Giving Information Like Gas Limit,Gas Left,Chain ID,Gas Consumed On Each Transction. And UI Also Improved With Adding Image And All Aslo Removing Unnecessary Functions 
+This is An Upgraded Version Of Meta Atm 2.0 .Which Include Some New Functions Like  Interest And Compound Interest Also Call Some Data Reading Functions  And Other Info Giving Information Like Gas Limit,Gas Left,Chain ID,Gas Consumed On Each Transction.One Of The Great Feature Is That You Can Just Type The Amount Of ETH You Wanna Deposit Or WithdrAW And you Can Also Calculte Your Planned Investment Interest Amount Using Simple And compound Interest Calculating Buttons. And UI Also Improved With Adding Image And All Aslo Removing Unnecessary Functions 
 This Program Shows What Are The Basic Function That You Need To Do Transactions Like Deposit , Withdraw and Transaction Also How You can Add Your own Functions To The smart Contract And Hoe You Can Bring The Value To The Front End And Also To Customise Your Web3 Page!!!!!
 
 
@@ -41,7 +41,7 @@ npm run dev
 But If You Are Running The program On Online IDE Like Gitpod,Remix Instead Of RPC Url You Need Port URL Mainly Port(8475) Which Can Be Obtained From Port Tab Next To The Terminal
 *For Other Details Of Net Work Follow Below Info
 ````
-Name:Whatever You Like
+Name:Meta-ATM-Sever 3.0
 Chain ID:31337
 Currency Symbol:ETH
 ````
