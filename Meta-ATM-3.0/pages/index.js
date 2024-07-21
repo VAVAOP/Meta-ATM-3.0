@@ -1,17 +1,20 @@
 import {useState, useEffect} from "react";
 import {ethers} from "ethers";
 import atm_abi from "../artifacts/contracts/Assessment.sol/Assessment.json";
+import banner from "../src/images/banner.jpg";
 
 export default function HomePage() {
   const [color] = useState("yellow")
   useEffect(()=>{
    document.body.style.backgroundColor = color
-  })
+  });
+  useEffect(()=>{
+   document.body.style.backgroundImage = `url('${banner}')`
+  });
   const [ethWallet, setEthWallet] = useState(undefined);
   const [account, setAccount] = useState(undefined);
   const [atm, setATM] = useState(undefined);
   const [balance, setBalance] = useState(undefined);
-  
 
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const atmABI = atm_abi.abi;
@@ -63,6 +66,8 @@ export default function HomePage() {
       setBalance((await atm.getBalance()).toNumber());
     }
   }
+  // Data Functions//
+
   const blocktimeprint =()=>{
     alert(BlockTime)
   }
@@ -72,32 +77,13 @@ export default function HomePage() {
       setBlockTime((await atm.blocktime()));
     }
   }
-
-  const messagevalueprint =()=>{
-    alert(MessageValue)
+  const sendownerprint =()=>{
+    alert(SendOwner)
   }
-  const [MessageValue,setMessageValue] =useState(undefined);
-  const getMessageValue =async()=>{
+  const [SendOwner,setSendOwner] =useState(undefined);
+  const getSendOwner =async()=>{
     if (atm){
-      setMessageValue((await atm.messagevalue()));
-    }
-  }
-  const txgaspriceprint =()=>{
-    alert(TxGasPrice)
-  }
-  const [TxGasPrice,setTxGasPrice] =useState(undefined);
-  const getTxGasPrice =async()=>{
-    if (atm){
-      setTxGasPrice((await atm.txgasprice()));
-    }
-  }
-  const txoriginprint =()=>{
-    alert(TxOrigin)
-  }
-  const [TxOrigin,setTxOrigin] =useState(undefined);
-  const getTxOrigin =async()=>{
-    if (atm){
-      setTxOrigin((await atm.txorigin()));
+      setSendOwner((await atm.sendowner()));
     }
   }
   const chainidprint =()=>{
@@ -136,27 +122,41 @@ export default function HomePage() {
       setGasLeft((await atm.gas_left()));
     }
   }
-
-  const [TransferAddress,SetTransferAddress]=useState(undefined);
-  const transferaddresschange=event =>{
-    SetTransferAddress(event.target.value)
+  //Simple And Compound Interest Function//
+  const [Principle,SetPrinciple]=useState(undefined);
+  const principlechange=event =>{
+    SetPrinciple(event.target.value)
+  }
+  const [NoOfYear,SetNoOfYear]=useState(undefined);
+  const noofyearchange=event =>{
+    SetNoOfYear(event.target.value)
   }
 
-const [TransferAmount,SetTransferAmount]=useState(undefined);
-const transferamountchange=event =>{
-SetTransferAmount(event.target.value)
-}
- 
-const transferamount = async() => {
-  if (atm) {
-    let tx = await atm.transfer(TransferAddress,TransferAmount);
-    await tx.wait()
-    getBalance();
+  const compoundinterestprint =()=>{
+    alert(CompoundInterest)
   }
-}
-  
- 
-  
+  const [CompoundInterest,setCompoundInterest] =useState(undefined);
+  const getCompoundInterest =async()=>{
+    if (atm){
+      setCompoundInterest((await atm.compoundInterest(Principle,NoOfYear)));
+    }
+  }
+
+
+  const simpleinterestprint =()=>{
+    alert(SimpleInterest)
+  }
+  const [SimpleInterest,setSimpleInterest] =useState(undefined);
+  const getSimpleInterest =async()=>{
+    if (atm){
+      setSimpleInterest((await atm.simpleInterest(Principle,NoOfYear)));
+    }
+  }
+
+
+
+   //Deposit And Withdraw Function//
+
   const amountdeposit =async() =>  {
     if (atm) {
       let tx = await atm.deposit(DepositAmount);
@@ -202,14 +202,8 @@ const transferamount = async() => {
     if (BlockTime == undefined) {
       getBlockTime();
     }
-    if (MessageValue == undefined) {
-      getMessageValue();
-    }
-    if (TxGasPrice == undefined) {
-      getTxGasPrice();
-    }
-    if (TxOrigin == undefined) {
-      getTxOrigin();
+    if (SendOwner == undefined) {
+      getSendOwner();
     }if (ChainId == undefined) {
       getChainId();
     }
@@ -222,14 +216,12 @@ const transferamount = async() => {
     if (GasLeft == undefined) {
       getGasLeft();
     }
-    
-    return (
-      <div style="background:url('./banner-img-1.jpg')">
-        background-image:url("banner-img-1.jpg");
 
+    return (
+      <div className="bg" style={{backgroundImage:`url(${require('../src/images/banner.jpg')})`}}>
         <p>Your Account: {account}</p>
         <p>Your Balance: {balance}</p>
-        
+
         <input 
       type="text"
       placeholder="Deposit Amount"
@@ -250,40 +242,14 @@ const transferamount = async() => {
         amountwithdraw() 
        }}>Withdraw</button>
 
-   <input
-        type="text"
-        placeholder="Transfer Address"
-        value={TransferAddress}
-        onChange={transferaddresschange}
-        />
-        <input 
-      type="text"
-      placeholder="Withdraw Amount"
-      value={TransferAmount}
-      onChange={transferamountchange}
-      />
-        <button style={{background:'green',color:'white'}} onClick ={()=>{
-          transferamount();
-        }}>transfer</button>
-        
-        <button style={{background:'black',color:'white'}} onClick={()=>{
-        blocktimeprint();
+<button style={{background:'black',color:'white'}} onClick={()=>{
         getBlockTime();
+        blocktimeprint();
         }}>Block Time</button>
 
         <button style={{background:'black',color:'white'}} onClick={()=>{
-        messagevalueprint();
-        getMessageValue();
-        }}>Message_Value</button>
-
-        <button style={{background:'black',color:'white'}} onClick={()=>{
-        txgaspriceprint();
-        getTxGasPrice();
-        }}>Tx Gas Price</button>
-
-        <button style={{background:'black',color:'white'}} onClick={()=>{
-        txoriginprint();
-        getTxOrigin();
+        sendownerprint();
+        getSendOwner();
         }}>Sender Address</button>
 
         <button style={{background:'black',color:'white'}} onClick={()=>{
@@ -305,6 +271,37 @@ const transferamount = async() => {
         gasleftprint();
         getGasLeft();
         }}>Gas Left</button>
+
+        <div>
+          <p>We Provide 80% Interest Rate !!!</p>
+          <p>Calculate Simple And Compound Interest</p>
+
+          <input 
+      type="text"
+      placeholder="Investing Amount"
+      value={Principle}
+      onChange={principlechange}
+      />
+        <input 
+      type="text"
+      placeholder="Number Of Years Investing"
+      value={NoOfYear}
+      onChange={noofyearchange}
+      />
+
+<button style={{background:'blue',color:'white'}} onClick={()=>{
+        simpleinterestprint();
+        getSimpleInterest();
+        }}>Simple Interest</button>
+
+<button style={{background:'blue',color:'white'}} onClick={()=>{
+        compoundinterestprint();
+        getCompoundInterest();
+        }}>Compound Interest</button>
+
+        </div>
+
+        
       </div>
     )
   }
@@ -313,19 +310,18 @@ const transferamount = async() => {
 
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM 3.0 !</h1></header>
+      <header><h1>Welcome to the Metacrafters ATM 3.0!</h1></header>
       {initUser()}
       <style jsx>{`
         .container {
           text-align: center
         }
-          background :url('banner-img-1.jpg');
-          background-repeat:no-repeat;
-          background-position:center;
+          .bg{
+          background-image: url(../images/banner.jpg);
           background-size:cover;
+          }
       `}
       </style>
     </main>
   )
-  
 }
